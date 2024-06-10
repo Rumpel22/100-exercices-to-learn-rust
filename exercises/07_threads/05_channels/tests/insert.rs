@@ -2,6 +2,8 @@
 //  Feel free to call an instructor to verify your solution!
 use channels::data::TicketDraft;
 use channels::{launch, Command};
+use core::time;
+use std::thread;
 use std::time::Duration;
 use ticket_fields::test_helpers::{ticket_description, ticket_title};
 
@@ -26,7 +28,7 @@ fn ready() {
     // since our server doesn't expose any **read** actions.
     // We have no way to know if the inserts are actually happening and if they
     // are happening correctly.
-    let move_forward = false;
+    let move_forward = true;
 
     assert!(move_forward);
 }
