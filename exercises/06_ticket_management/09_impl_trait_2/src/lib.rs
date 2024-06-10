@@ -33,7 +33,10 @@ impl TicketStore {
     // that can be infallibly converted into a `Ticket`.
     // This can make it nicer to use the method, as it removes the syntax noise of `.into()`
     // from the calling site. It can worsen the quality of the compiler error messages, though.
-    pub fn add_ticket(&mut self, ticket: impl Into<Ticket>) {
+    pub fn add_ticket<T>(&mut self, ticket: T)
+    where
+        T: Into<Ticket>,
+    {
         self.tickets.push(ticket.into());
     }
 }
@@ -62,7 +65,7 @@ mod tests {
     fn generic_add() {
         let mut store = TicketStore::new();
         // This won't compile if `add_ticket` uses `impl Trait` syntax in argument position.
-        store.add_ticket::<TicketDraft>(TicketDraft {
+        store.add_ticket(TicketDraft {
             title: ticket_title(),
             description: ticket_description(),
         });
